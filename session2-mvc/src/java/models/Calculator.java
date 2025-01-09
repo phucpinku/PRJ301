@@ -60,10 +60,10 @@ public class Calculator {
             case "add":
                 result = num1 + num2;
                 break;
-            case "aub":
+            case "sub":
                 result = num1 - num2;
                 break;
-            case "aul":
+            case "mul":
                 result = num1 * num2;
                 break;
             case "div":

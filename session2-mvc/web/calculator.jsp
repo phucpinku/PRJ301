@@ -23,10 +23,11 @@ and open the template in the editor.
             <button type="summit" name="op" value="sub">Sub</button>
             <button type="summit" name="op" value="mul">Mul</button>
             <button type="summit" name="op" value="div">Div</button>
-            <input type="reset" value="Reset"/>
         </form>
-        Result: ${result}
-        <!--${result}: lay attribute result tu doi tuong request-->
+        Result: ${model.result}
+        <%--
+                    ${model.result}: ben duoi se thuc hien model.getResult()
+        --%>
         
     </body>
 </html>
