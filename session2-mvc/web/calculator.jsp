@@ -19,10 +19,10 @@ and open the template in the editor.
             <input type="text" name="num1" value="${param.num1}"/><br/>
             Number 2:<br/>
             <input type="text" name="num2" value="${param.num2}"/><br/>
-            <input type="submit" name="op" value="Add"/>
-            <input type="submit" name="op" value="Sub"/>
-            <input type="submit" name="op" value="Mul"/>
-            <input type="submit" name="op" value="Div"/>
+            <button type="summit" name="op" value="add">Add</button>
+            <button type="summit" name="op" value="sub">Sub</button>
+            <button type="summit" name="op" value="mul">Mul</button>
+            <button type="summit" name="op" value="div">Div</button>
             <input type="reset" value="Reset"/>
         </form>
         Result: ${result}
