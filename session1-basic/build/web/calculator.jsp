@@ -16,10 +16,13 @@ and open the template in the editor.
         <form action="calculator2"> 
             <!--calculator1: is URL pattern of servlet will process form -->
             Number 1:<br/>
-            <input type="text" name="num1" value="10"/><br/>
+            <input type="text" name="num1" value="${param.num1}"/><br/>
             Number 2:<br/>
-            <input type="text" name="num2" value="20"/><br/>
-            <input type="submit" value="Add"/>
+            <input type="text" name="num2" value="${param.num2}"/><br/>
+            <input type="submit" name="op" value="Add"/>
+            <input type="submit" name="op" value="Sub"/>
+            <input type="submit" name="op" value="Mul"/>
+            <input type="submit" name="op" value="Div"/>
             <input type="reset" value="Reset"/>
         </form>
         Result: ${result}
