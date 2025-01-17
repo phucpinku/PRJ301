@@ -3,9 +3,11 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,24 @@ public class ToyFacade {
         //close connection to db
         con.close();
         return list;
+    }
+    
+    public void create(Toy toy) throws SQLException {
+        //create connection to db
+        Connection con = DBContext.getConnection();
+        //create object stm and execute select command
+        PreparedStatement stm = con.prepareStatement("insert Toy values(?, ?, ?, ?, ?)");
+        //provide values for cac tham so
+        stm.setString(1, toy.getId());
+        stm.setString(2, toy.getName());
+        stm.setDouble(3, toy.getPrice());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        stm.setString(4, sdf.format(toy.getExpDate()));
+        stm.setString(5, toy.getBrand());
+        //execute sql command
+        int count = stm.executeUpdate();
+        //close connection to db
+        con.close();
     }
     
 }
