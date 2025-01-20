@@ -16,6 +16,8 @@
         <hr/>
         <form action="toy">
             Are you sure to delete this toy with id = ${param.id}?
+            <br/>
+            <input type="hidden" name="id" value="${param.id}"/>
             <input type="hidden" name="action" value="delete_handler"/>
             <button type="summit" value="yes" name="op">Yes</button>
             <button type="summit" value="no" name="op">No</button>

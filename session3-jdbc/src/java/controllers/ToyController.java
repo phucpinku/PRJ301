@@ -58,6 +58,14 @@ public class ToyController extends HttpServlet {
                 //execute delete form
                 delete_handler(request, response);
                 break;
+            case "edit":
+                //show edit form
+                edit(request, response);
+                break;
+            case "edit_handler":
+                //execute edit form
+                edit_handler(request, response);
+                break;
         }
         try {
 
@@ -131,21 +139,21 @@ public class ToyController extends HttpServlet {
             ex.printStackTrace();
         }
     }
-    
+
     protected void create_handler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             String op = request.getParameter("op");
-            switch(op) {
+            switch (op) {
                 case "create":
                     //take infor from client
                     String id = request.getParameter("id");
-                    String name= request.getParameter("name");
+                    String name = request.getParameter("name");
                     double price = Double.parseDouble(request.getParameter("price"));
                     String expDate = request.getParameter("expDate");
                     String brand = request.getParameter("brand");
                     //create object Toy
-                   // Toy toy = new Toy(id, name, price, expDate, brand);
+                    // Toy toy = new Toy(id, name, price, expDate, brand);
                     Toy toy = new Toy();
                     toy.setId(id);
                     toy.setName(name);
@@ -156,20 +164,20 @@ public class ToyController extends HttpServlet {
                     //insert data to db
                     ToyFacade tf = new ToyFacade();
                     tf.create(toy);
-                    
+
                 case "cancel":
                     //Cach 1request.getRequestDispatcher("/index.jsp").forward(request, response);
                     request.getRequestDispatcher("/toy?action=index").forward(request, response);
                     break;
             }
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Can't insert a new toy.");
             request.getRequestDispatcher("create.jsp").forward(request, response);
         }
     }
-    
+
     protected void delete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -178,4 +186,85 @@ public class ToyController extends HttpServlet {
             ex.printStackTrace();
         }
     }
+
+    protected void delete_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String op = request.getParameter("op");
+            switch (op) {
+                case "yes":
+                    String id = request.getParameter("id");
+                    //delete toy
+                    ToyFacade tf = new ToyFacade();
+                    tf.delete(id);
+
+                case "no":
+                    //show toy list (rerun index case)
+                    //method 1: request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("/toy?action=index.jsp").forward(request, response);
+                    break;
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    protected void edit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String id = request.getParameter("id");
+            //read toy from database
+            ToyFacade tf = new ToyFacade();
+            Toy toy = tf.read(id);
+            //save toy to request for viewing
+            request.setAttribute("toy",toy);
+            //show view edit.jsp
+            request.getRequestDispatcher("/edit.jsp").forward(request, response);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    protected void edit_handler(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
+            String op = request.getParameter("op");
+            switch(op) {
+                case "update":
+                    //get infors from client
+                    //take infor from client
+                    String id = request.getParameter("id");
+                    String name = request.getParameter("name");
+                    double price = Double.parseDouble(request.getParameter("price"));
+                    String expDate = request.getParameter("expDate");
+                    String brand = request.getParameter("brand");
+                    //create object Toy
+                    // Toy toy = new Toy(id, name, price, expDate, brand);
+                    Toy toy = new Toy();
+                    toy.setId(id);
+                    toy.setName(name);
+                    toy.setPrice(price);
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    toy.setExpDate(sdf.parse(expDate));
+                    toy.setBrand(brand);
+                    //update data to db
+                    ToyFacade tf = new ToyFacade();
+                    tf.update(toy);
+                case "cancel":
+                    //show toy list (rerun index case)
+                    //method 1: request.getRequestDispatcher("/index.jsp").forward(request, response);
+                    request.getRequestDispatcher("/toy?action=index.jsp").forward(request, response);
+                    break;
+            }
+            
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "can't update toy data");
+            //show edit.jsp again
+            edit(request, response);
+        }
+    }
+    
 }
