@@ -22,8 +22,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <%--header--%>
-                    <h1 style="color:red;">FrontController - Layout - JDBC - Demo</h1>
-                    <hr/>
+                    <h1 style="color:red;">Pet Store</h1>
                 </div>
 
             </div>
@@ -31,21 +30,16 @@
                 <div class="col-sm-12">
                     <%--content--%>
                     <jsp:include page="/WEB-INF/${controller}/${action}.jsp" />
-
                 </div>
 
             </div>
             <div class="row">
                 <div class="col-sm-12">
                     <%--footer--%>
-                    <hr/>
                     Copyrights &copy; by FPT Students
                 </div>
-
             </div>
         </div>
-
-
 
     </body>
 </html>
