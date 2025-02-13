@@ -10,7 +10,7 @@
     <body>
         <h1>Product Crud</h1>
         <hr/>
-        <a href="product?action=create">Create New</a>
+        <a href="<c:url value="/product/create.do"/>">Create New</a>
         <table border="1" cellspacing="0" cellpadding="2">
             <tr>
                 <th>Id</th>
@@ -30,8 +30,8 @@
                         <fmt:formatDate value="${product.expDate}" pattern="dd-MM-yyyy" />
                     </td>
                     <td>
-                        <a href="product?action=edit&id=${product.id}">Edit</a>
-                        <a href="product?action=delete&id=${product.id}">Delete</a>
+                        <a href="<c:url value="/product/edit.do?id=${product.id}"/>">Edit</a>
+                        <a href="<c:url value="/product/delete.do?id=${product.id}"/>">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

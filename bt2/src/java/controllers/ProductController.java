@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
+@WebServlet(name = "ProductController", urlPatterns = {"/product/*"})
 public class ProductController extends HttpServlet {
 
     /**
@@ -28,7 +28,8 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
+        String uri = request.getRequestURI();
+        String action = uri.substring(uri.lastIndexOf("/") + 1, uri.indexOf("."));
         switch (action) {
             case "index":
                 index(request, response);
@@ -95,7 +96,7 @@ public class ProductController extends HttpServlet {
                     //request.getRequestDispatcher("/index.jsp").forward(request, response);
 
                     // Cach 2
-                    request.getRequestDispatcher("/product?action=index").forward(request, response);
+                    request.getRequestDispatcher("/product/index.do").forward(request, response);
                     break;
             }
 
@@ -128,7 +129,7 @@ public class ProductController extends HttpServlet {
                     //request.getRequestDispatcher("/index.jsp").forward(request, response);
 
                     // Cach 2
-                    request.getRequestDispatcher("/product?action=index").forward(request, response);
+                    request.getRequestDispatcher("/product/index.do").forward(request, response);
                     break;
             }
 
@@ -176,13 +177,14 @@ public class ProductController extends HttpServlet {
                     //request.getRequestDispatcher("/index.jsp").forward(request, response);
 
                     // Cach 2
-                    request.getRequestDispatcher("/product?action=index").forward(request, response);
+                    request.getRequestDispatcher("/product/index.do").forward(request, response);
                     break;
             }
         } catch (Exception ex) {
             ex.printStackTrace();
             request.setAttribute("message", "Can't edit product");
-            edit(request, response);
+//            edit(request, response);
+            request.getRequestDispatcher("/product/index.do").forward(request, response);
 
         }
     }
