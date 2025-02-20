@@ -5,24 +5,24 @@
  */
 package controllers;
 
+import cart.Cart;
 import db.Product;
 import db.productFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author ACER
  */
-@WebServlet(name = "ProductController", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "CartController", urlPatterns = {"/cart"})
+public class CartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,40 +39,37 @@ public class ProductController extends HttpServlet {
         String action = (String)request.getAttribute("action");
         //System.out.println("action: " + action);
         switch(action){
-            case "index":
-                index(request, response);
+            case "add":
+                add(request, response);
                 break;
         }    
     }
-
-    protected void index(HttpServletRequest request, HttpServletResponse response)
+    
+    protected void add(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {            
-            int pageSize = 6;
-            //lay tham so page
-            String spage = request.getParameter("page");
-            int page = (spage==null) ? 1:Integer.parseInt(spage);
-            if (page < 1) {
-                page = 1;
-            }
-            //luu page vao request
-            request.setAttribute("page", page);
-            //đọc table Toy
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+            //doc product tu db
             productFacade pf = new productFacade();
-            List<Product> list = pf.select(page, pageSize);
-            //tinh totalPage
-            int rowCount = pf.count();
-            int totalPage =(int)Math.ceil(rowCount / pageSize);
-            //luu totalPage vao request
-            request.setAttribute("totalPage", totalPage);
-            //lưu list vào request
-            request.setAttribute("list", list);
-            //forward request & response cho view /toy.jsp xử lý tiếp
-            request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            Product product = pf.select(id);
+            //lay tham chieu cua session
+            HttpSession session = request.getSession();
+            //lay cart tu session
+            Cart cart = (Cart)session.getAttribute("cart");
+            if (cart == null) {
+                cart = new Cart();
+                session.setAttribute("cart", cart);
+            }
+            //them product vao cart
+            cart.add(product, 1);
+            //cho hien lai view index
+            request.getRequestDispatcher("/").forward(request, response);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
