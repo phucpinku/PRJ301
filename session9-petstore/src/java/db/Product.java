@@ -33,6 +33,10 @@ public class Product {
         return price;
     }
 
+     public double getNewPrice() {
+        return price * (1-getDiscount());
+    }
+    
     public void setPrice(double price) {
         this.price = price;
     }
@@ -52,5 +56,6 @@ public class Product {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+    
     
 }

@@ -39,6 +39,9 @@ public class CartController extends HttpServlet {
         String action = (String)request.getAttribute("action");
         //System.out.println("action: " + action);
         switch(action){
+            case "index":
+                index(request, response);
+                break;
             case "add":
                 add(request, response);
                 break;
@@ -68,6 +71,11 @@ public class CartController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    protected void index(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

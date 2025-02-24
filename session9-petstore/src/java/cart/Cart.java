@@ -31,4 +31,14 @@ public class Cart {
         
         return this.map.values();
     }
+    
+    public double getTotal() {
+        double total = 0;
+        for (Item item: this.map.values()) {
+            total += item.getCost();
+        }
+        
+        return total;
+    }
+    
 }
