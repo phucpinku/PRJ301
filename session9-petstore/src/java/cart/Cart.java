@@ -41,4 +41,12 @@ public class Cart {
         return total;
     }
     
+    public void remove(int id) {
+        this.map.remove(id);
+    }
+    
+    public void empty() {
+        this.map.clear();
+    }
+    
 }

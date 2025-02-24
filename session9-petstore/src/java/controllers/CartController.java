@@ -45,6 +45,12 @@ public class CartController extends HttpServlet {
             case "add":
                 add(request, response);
                 break;
+            case "empty":
+                empty(request, response);
+                break;
+            case "remove":
+                remove(request, response);
+                break;
         }    
     }
     
@@ -59,10 +65,6 @@ public class CartController extends HttpServlet {
             HttpSession session = request.getSession();
             //lay cart tu session
             Cart cart = (Cart)session.getAttribute("cart");
-            if (cart == null) {
-                cart = new Cart();
-                session.setAttribute("cart", cart);
-            }
             //them product vao cart
             cart.add(product, 1);
             //cho hien lai view index
@@ -77,6 +79,32 @@ public class CartController extends HttpServlet {
             throws ServletException, IOException {
         request.getRequestDispatcher(Config.LAYOUT).forward(request, response);
     }
+    
+    protected void empty(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Cart cart =(Cart) session.getAttribute("cart");
+        cart.empty();
+        request.getRequestDispatcher("/cart/index.do").forward(request, response);
+    }
+    
+    protected void remove(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        int id = Integer.parseInt(request.getParameter("id"));
+        Cart cart =(Cart) session.getAttribute("cart");
+        cart.remove(id);
+        request.getRequestDispatcher("/cart/index.do").forward(request, response);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -115,5 +143,7 @@ public class CartController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    
+    
 }
