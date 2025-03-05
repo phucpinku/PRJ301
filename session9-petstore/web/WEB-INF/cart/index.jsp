@@ -33,24 +33,39 @@
                 <fmt:formatNumber value="${item.product.newPrice}" type="currency" />
             </td>
             <td style="text-align: right">
-                <fmt:formatNumber value="${item.quantity}" type="number" />
+                <input type="number" min="0" name="quantity" value="${item.quantity}" style="width:60px" />
+
             </td>
             <td style="text-align: right">
                 <fmt:formatNumber value="${item.cost}" type="currency" />
             </td>
             <td>
-                <a href="">Update</a> | 
+                <a href="#" class="update" data-id="${item.id}">Update</a> | 
                 <a href="<c:url value="/cart/remove.do?id=${item.id}" />">Remove</a>
-                
+
             </td>
         </tr>
     </c:forEach>
-        <tr>
-            <th style="text-align: right" colspan="7">Total</th>
-            <th style="text-align: right">
-                <fmt:formatNumber value="${cart.total}" type="currency" />
-            </th>
-            <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
-        </tr>
+    <tr>
+        <th style="text-align: right" colspan="7">Total</th>
+        <th style="text-align: right">
+            <fmt:formatNumber value="${cart.total}" type="currency" />
+        </th>
+        <th><a href="<c:url value="/cart/empty.do" />">Empty Cart</a></th>
+    </tr>
 
 </table>
+    <a href="<c:url value="/cart/checkout.do" />">Check out</a>
+    
+    
+<script>
+    $(".update").click(function () {
+        //lay id va quantity
+        var id = $(this).data("id");
+        var quantity = $(this).closest("tr").find("input[name='quantity']").val();
+        //tao url
+        var url = `<c:url value="/cart/update.do?id=\${id}&quantity=\${quantity}" />`;
+        
+        window.location = url;
+    });
+</script>

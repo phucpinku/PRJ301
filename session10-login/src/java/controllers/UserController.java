@@ -107,7 +107,13 @@ public class UserController extends HttpServlet {
         session.invalidate();
         //cho hien home page
         request.getRequestDispatcher("/index.jsp").forward(request, response);
-    }// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    }
+
+
+
+
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
     /**
      * Handles the HTTP <code>GET</code> method.

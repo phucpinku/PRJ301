@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,13 +51,20 @@ public class ProductController extends HttpServlet {
         try {            
             int pageSize = 6;
             //lay tham so page
-            String spage = request.getParameter("page");
-            int page = (spage==null) ? 1:Integer.parseInt(spage);
-            if (page < 1) {
+            HttpSession session = request.getSession();
+            Integer page = (Integer)session.getAttribute("page");
+            if (page == null) {
                 page = 1;
+                session.setAttribute("page", 1);
+                
             }
-            //luu page vao request
-            request.setAttribute("page", page);
+            
+            String spage = request.getParameter("page");
+            if (spage != null) {
+                page = Integer.parseInt(spage);
+                session.setAttribute("page", page);
+            }
+
             //đọc table Toy
             productFacade pf = new productFacade();
             List<Product> list = pf.select(page, pageSize);
