@@ -1,5 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${account == null}">
+    <c:redirect url="login.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,19 +14,20 @@
         <h1>Creating Employee</h1>
         <hr/>
         <!--your code here-->
+        
         <form action="MainController">
+            <input type="hidden" name="action" value="create_handler"/>
             Id: <br/>
-            <input type="text" disabled=""> <br/>
+            <input type="text" disabled="" /> <br/>
             Full Name: <br/>
-            <input type="text" name="fullname" value="${param.fullname}"> <br/>
+            <input type="text" name="fullName"> <br/>
             Date of Birth: <br/>
-            <input type="date" name="dob" value="${param.dob}"> <br/>
+            <input type="date" name="dob"> <br/>
             Salary: <br/>
-            <input type="text" name="salary" value="${param.salary}"> <br/>
-            <input type="hidden" name="action" value="create_handler" />
-            <button type="submit" name="op" value="create">Create</button>
-            <button type="submit" name="op" value="cancel">Cancel</button>
+            <input type="number" name="salary" min="0" value="0">
+            <button type="submit" name="op" value="create" >Create</button>
+            <button type="submit" name="op" value="cancel" >Cancel</button>
         </form>
-        <i style="color: red">${message}</i>
+        
     </body>
 </html>

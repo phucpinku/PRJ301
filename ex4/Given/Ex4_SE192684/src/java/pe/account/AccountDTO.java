@@ -2,63 +2,62 @@ package pe.account;
 
 public class AccountDTO {
     //your code here
-    private int id;
-    private String email;
-    private String fullName;
-    private String roleID;
-    private String password;
+    private int Id;
+    private String Email;
+    private String FullName;
+    private String RoleId;
+    private String Password;
 
-    public AccountDTO(int id, String email, String fullName, String roleID, String password) {
-        this.id = id;
-        this.email = email;
-        this.fullName = fullName;
-        this.roleID = roleID;
-        this.password = password;
+    public AccountDTO(int Id, String Email, String FullName, String RoleId, String Password) {
+        this.Id = Id;
+        this.Email = Email;
+        this.FullName = FullName;
+        this.RoleId = RoleId;
+        this.Password = Password;
     }
 
     public AccountDTO() {
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
     public String getFullName() {
-        return fullName;
+        return FullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(String FullName) {
+        this.FullName = FullName;
     }
 
-    public String getRoleID() {
-        return roleID;
+    public String getRoleId() {
+        return RoleId;
     }
 
-    public void setRoleID(String roleID) {
-        this.roleID = roleID;
+    public void setRoleId(String RoleId) {
+        this.RoleId = RoleId;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
-    
     
     
 }

@@ -1,5 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,13 +10,12 @@
         <hr/>
         <!--your code here-->
         <form action="MainController">
-        Email:<br/>
-        <input type="email" name="email" value="${param.email}" /><br/>
-        Password:<br/>
-        <input type="password" name="password" value="${param.password}" /><br/>
-        <input type="hidden" name="action" value="login" />
-        <button type="submit" name="op" value="login">login</button>    
+            Email:<br/>
+            <input type="text" name="email" required=""/><br/>
+            Password:<br/>
+            <input type="password" name="password" required=""/><br/>
+            <button type="submit" name="action" value="login">Login</button>
         </form>
-        <i style="color:red;">${message}</i>
+        <i>${message}</i>
     </body>
 </html>

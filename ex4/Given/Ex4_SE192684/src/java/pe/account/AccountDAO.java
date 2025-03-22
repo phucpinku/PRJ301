@@ -10,25 +10,26 @@ import java.util.List;
 import pe.utils.DBUtils;
 
 public class AccountDAO {
-    //your code here
-    public List<AccountDTO> select() throws SQLException, ClassNotFoundException {
-        List<AccountDTO> list = null;
 
+    //your code here
+    public List<AccountDTO> selectAll() throws SQLException, ClassNotFoundException {
         Connection con = DBUtils.getConnection();
 
         Statement stm = con.createStatement();
+
         ResultSet rs = stm.executeQuery("SELECT * FROM Account");
 
-        list = new ArrayList<>();
+        List<AccountDTO> list = new ArrayList<>();
 
         while (rs.next()) {
-            AccountDTO acc = new AccountDTO();
-            acc.setId(rs.getInt("id"));
-            acc.setEmail(rs.getString("email"));
-            acc.setFullName(rs.getString("fullName"));
-            acc.setRoleID(rs.getString("roleID"));
-            acc.setPassword(rs.getString("password"));
-            list.add(acc);
+            AccountDTO ac = new AccountDTO();
+            ac.setId(rs.getInt("Id"));
+            ac.setEmail(rs.getString("Email"));
+            ac.setFullName(rs.getString("FullName"));
+            ac.setRoleId(rs.getString("RoleId"));
+            ac.setPassword(rs.getString("Password"));
+
+            list.add(ac);
         }
 
         con.close();
@@ -36,27 +37,25 @@ public class AccountDAO {
     }
 
     public AccountDTO login(String email, String password) throws SQLException, ClassNotFoundException {
-        AccountDTO acc = null;
-        
         Connection con = DBUtils.getConnection();
+
+        String sql = "SELECT * FROM Account WHERE Email = '" + email + "' AND Password = '"+ password +"'";
         
-        PreparedStatement stm = con.prepareStatement("SELECT * FROM Account WHERE email = ? AND password = ?");
-        
-        stm.setString(1, email);
-        stm.setString(2, password);
-        
+        PreparedStatement stm = con.prepareStatement(sql);
+
         ResultSet rs = stm.executeQuery();
-        
-        if(rs.next()) {
-            acc = new AccountDTO();
-            acc.setId(rs.getInt("id"));
-            acc.setEmail(rs.getString("email"));
-            acc.setFullName(rs.getString("fullName"));
-            acc.setRoleID(rs.getString("roleId"));
-            acc.setPassword(rs.getString("password"));
+
+        AccountDTO ac = new AccountDTO();
+
+        if (rs.next()) {
+            ac.setId(rs.getInt("Id"));
+            ac.setEmail(rs.getString("Email"));
+            ac.setFullName(rs.getString("FullName"));
+            ac.setRoleId(rs.getString("RoleId"));
+            ac.setPassword(rs.getString("Password"));
         }
-        
+
         con.close();
-        return acc;
+        return ac;
     }
 }

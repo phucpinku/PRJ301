@@ -1,19 +1,18 @@
 package pe.employee;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class EmployeeDTO {
     //your code here
-     private int id;
-    private String fullName;
-    private Date dob;
-    private double salary;
+    private int id;
+    private String FullName;
+    private Date Dob;
+    private double Salary;
 
-    public EmployeeDTO(int id, String fullName, Date dob, double salary) {
-        this.id = id;
-        this.fullName = fullName;
-        this.dob = dob;
-        this.salary = salary;
+    public EmployeeDTO(String FullName, Date Dob, double Salary) {
+        this.FullName = FullName;
+        this.Dob = Dob;
+        this.Salary = Salary;
     }
 
     public EmployeeDTO() {
@@ -28,27 +27,28 @@ public class EmployeeDTO {
     }
 
     public String getFullName() {
-        return fullName;
+        return FullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(String FullName) {
+        this.FullName = FullName;
     }
 
     public Date getDob() {
-        return dob;
+        return Dob;
     }
 
-    public void setDob(Date dob) {
-        this.dob = dob;
+    public void setDob(Date Dob) {
+        this.Dob = Dob;
     }
 
     public double getSalary() {
-        return salary;
+        return Salary;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setSalary(double Salary) {
+        this.Salary = Salary;
     }
+    
     
 }
